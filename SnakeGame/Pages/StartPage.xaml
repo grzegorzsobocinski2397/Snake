@@ -45,6 +45,8 @@ Focusable="True"
             Grid.RowSpan="3"
             VerticalAlignment="Center"
             FontSize="40"
+            TextWrapping="WrapWithOverflow"
+            TextAlignment="Center"
             Style="{StaticResource BaseTextBlock}">
             <Run Text="PRESS " />
             <Run Foreground="Red" Text=" ENTER  " />

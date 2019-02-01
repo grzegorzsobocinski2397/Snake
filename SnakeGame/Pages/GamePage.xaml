@@ -8,6 +8,7 @@
     Title="BoardPage"
     d:DesignHeight="450"
     d:DesignWidth="450"
+    
     x:TypeArguments="local:GameViewModel"
     mc:Ignorable="d">
 
@@ -17,9 +18,9 @@
         <KeyBinding Key="Down" Command="{Binding DownKeyCommand}" />
         <KeyBinding Key="Right" Command="{Binding RightKeyCommand}" />
         <KeyBinding Key="Left" Command="{Binding LeftKeyCommand}" />
-        <!-- Option commands -->
-        <KeyBinding Key="Esc" Command="{Binding ExitKeyCommand}"/>
-        <KeyBinding Key="P" Command="{Binding PauseCommand}"/>
+        <!--  Option commands  -->
+        <KeyBinding Key="Esc" Command="{Binding ExitKeyCommand}" />
+        <KeyBinding Key="P" Command="{Binding PauseCommand}" />
     </Page.InputBindings>
     <!--  Background  -->
     <Border Background="Black">
@@ -31,8 +32,8 @@
 
             <Canvas>
                 <Rectangle
-                    Canvas.Left="{Binding LeftCoordinate}"
-                    Canvas.Top="{Binding TopCoordinate}"
+                    Canvas.Left="{Binding X}"
+                    Canvas.Top="{Binding Y}"
                     Width="10"
                     Height="10"
                     Fill="White" />
