@@ -1,0 +1,70 @@
+﻿<local:BasePage
+    x:Class="SnakeGame.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SnakeGame"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="StartPage"
+    d:DesignHeight="450"
+    d:DesignWidth="450"
+    x:TypeArguments="local:StartGameViewModel"
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+        <Grid.InputBindings>
+            <KeyBinding Key="Enter" Command="{Binding StartGameCommand}" />
+        </Grid.InputBindings>
+        <Grid.RowDefinitions>
+            <!--  Snake title  -->
+            <RowDefinition Height="*" />
+            <!--  Press enter to begin  -->
+            <RowDefinition Height="*" />
+            <!--  Instructions  -->
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Title  -->
+        <TextBlock
+            Grid.Row="0"
+            Margin="0,40,0,0"
+            VerticalAlignment="Top"
+            FontSize="70"
+            Style="{StaticResource BaseTextBlock}"
+            Text="SNAKE" />
+
+        <!--  Press enter to begin  -->
+        <TextBlock
+            Grid.RowSpan="3"
+            VerticalAlignment="Center"
+            FontSize="40"
+            Style="{StaticResource BaseTextBlock}">
+            <Run Text="PRESS " />
+            <Run Foreground="Red" Text=" ENTER  " />
+            <Run Text="TO  BEGIN" />
+        </TextBlock>
+
+        <!--  Instructions  -->
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+            <TextBlock Style="{StaticResource BaseTextBlock}">
+                <Run Text="MOVE  WITH  YOUR " />
+                <Run Foreground="CadetBlue" Text=" KEYBOARD  ARROWS " />
+            </TextBlock>
+
+            <TextBlock Style="{StaticResource BaseTextBlock}">
+                <Run Text="PRESS " />
+                <Run Foreground="Purple" Text=" ESC" />
+                <Run Text=" TO  QUIT" />
+            </TextBlock>
+            <TextBlock Style="{StaticResource BaseTextBlock}">
+                <Run Text="PRESS " />
+                <Run Foreground="GreenYellow" Text=" P" />
+                <Run Text=" TO  PAUSE" />
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</local:BasePage>
