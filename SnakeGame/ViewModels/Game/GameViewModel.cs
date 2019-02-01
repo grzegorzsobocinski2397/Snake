@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Collections.ObjectModel;
+using System.Timers;
 using System.Windows.Input;
 
 namespace SnakeGame
@@ -60,10 +61,12 @@ namespace SnakeGame
             // Initialize player and apple
             Snake = new Snake();
             Apple = new Apple();
+         
+            
 
             // Create new timer 
-            Timer = new Timer(30);
-            Timer.Interval = 30;
+            Timer = new Timer(200);
+            Timer.Interval = 200;
             // Invoke Move() after interval time
             Timer.Elapsed += new ElapsedEventHandler(Move);
             Timer.Enabled = true;
@@ -100,7 +103,7 @@ namespace SnakeGame
             Snake.Y += Snake.YSpeed;
 
             // If snake hits wall then game is over
-            if (Snake.X <= 0 || Snake.X >= 334 || Snake.Y <= 0 || Snake.Y >= 334)
+            if (Snake.X <= 0 || Snake.X >= 330 || Snake.Y <= 0 || Snake.Y >= 330)
             {
                 Snake.Stop();
                 IsGameOver = true;

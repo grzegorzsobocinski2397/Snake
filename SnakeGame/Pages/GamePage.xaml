@@ -36,11 +36,12 @@
         <!--  Game board  -->
         <Border
             Grid.RowSpan="2"
-            Margin="20,20,20,90"
+            Margin="22,22,22,92"
             BorderBrush="SpringGreen"
             BorderThickness="2">
 
             <Canvas>
+                
                 <!--  Snake (player)  -->
                 <Rectangle
                     Canvas.Left="{Binding Snake.X}"
@@ -48,7 +49,6 @@
                     Width="10"
                     Height="10"
                     Fill="White" />
-                <!--  Apple  -->
                 <Rectangle
                     Canvas.Left="{Binding Apple.X}"
                     Canvas.Top="{Binding Apple.Y}"
@@ -56,6 +56,8 @@
                     Height="10"
                     Fill="Red" />
 
+
+               
             </Canvas>
         </Border>
         <TextBlock

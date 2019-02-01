@@ -59,6 +59,7 @@ namespace SnakeGame
             get { return ySpeed; }
             set { ySpeed = value; }
         }
+       
         #endregion
         #region Constructor
         /// <summary>
@@ -74,21 +75,21 @@ namespace SnakeGame
         public void MoveUp()
         {
             XSpeed = 0;
-            YSpeed = -5;
+            YSpeed = -10;
         }
         public void MoveDown()
         {
             XSpeed = 0;
-            YSpeed = 5;
+            YSpeed = 10;
         }
         public void MoveRight()
         {
-            XSpeed = 5;
+            XSpeed = 10;
             YSpeed = 0;
         }
         public void MoveLeft()
         {
-            XSpeed = -5;
+            XSpeed = -10;
             YSpeed = 0;
 
         }
