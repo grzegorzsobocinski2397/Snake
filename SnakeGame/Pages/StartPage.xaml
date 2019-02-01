@@ -5,16 +5,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SnakeGame"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="StartPage"
+Focusable="True"
+    
     d:DesignHeight="450"
     d:DesignWidth="450"
     x:TypeArguments="local:StartGameViewModel"
     mc:Ignorable="d">
 
+    <Page.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding StartGameCommand}" />
+    </Page.InputBindings>
+    <!--  Content  -->
     <Grid Background="Black">
+
         <Grid.InputBindings>
-            <KeyBinding Key="Enter" Command="{Binding StartGameCommand}" />
+            <KeyBinding Key="J" Command="{Binding StartGameCommand}" />
         </Grid.InputBindings>
+
         <Grid.RowDefinitions>
             <!--  Snake title  -->
             <RowDefinition Height="*" />
@@ -50,21 +57,27 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
 
+            <!--  Movement instructions  -->
             <TextBlock Style="{StaticResource BaseTextBlock}">
                 <Run Text="MOVE  WITH  YOUR " />
                 <Run Foreground="CadetBlue" Text=" KEYBOARD  ARROWS " />
             </TextBlock>
 
-            <TextBlock Style="{StaticResource BaseTextBlock}">
-                <Run Text="PRESS " />
-                <Run Foreground="Purple" Text=" ESC" />
-                <Run Text=" TO  QUIT" />
-            </TextBlock>
+            <!--  Pause instruction  -->
             <TextBlock Style="{StaticResource BaseTextBlock}">
                 <Run Text="PRESS " />
                 <Run Foreground="GreenYellow" Text=" P" />
                 <Run Text=" TO  PAUSE" />
             </TextBlock>
+
+            <!--  Quit instruction  -->
+            <TextBlock Style="{StaticResource BaseTextBlock}">
+                <Run Text="PRESS " />
+                <Run Foreground="Purple" Text=" ESC" />
+                <Run Text=" TO  QUIT" />
+            </TextBlock>
+
+
         </StackPanel>
     </Grid>
 </local:BasePage>

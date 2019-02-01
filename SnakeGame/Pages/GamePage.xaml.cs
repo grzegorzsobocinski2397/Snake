@@ -18,9 +18,9 @@ namespace SnakeGame
     /// <summary>
     /// Interaction logic for BoardPage.xaml
     /// </summary>
-    public partial class BoardPage : Page
+    public partial class GamePage : BasePage<GameViewModel>
     {
-        public BoardPage()
+        public GamePage()
         {
             InitializeComponent();
         }

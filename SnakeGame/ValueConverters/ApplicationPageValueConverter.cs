@@ -15,12 +15,12 @@ namespace SnakeGame
             {
                 case ApplicationPage.StartPage:
                     return new StartPage();
-                case ApplicationPage.BoardPage:
-                    return new BoardPage();
+                case ApplicationPage.GamePage:
+                    return new GamePage();
                 default:
                     Debugger.Break();
                     return null;
-            }
+            };
 
         }
 

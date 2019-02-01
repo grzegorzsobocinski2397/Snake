@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SnakeGame 
 
@@ -31,8 +32,16 @@ namespace SnakeGame
                 viewModel = value;
                 // Set the data context for the page
                 this.DataContext = viewModel;
+                // Set the keyboard focus on this page 
+                this.Loaded += BasePage_Loaded;
             }
 
+        }
+
+        private void BasePage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Focusable = true;
+            Keyboard.Focus(this);
         }
         #endregion
         #region Constructor
