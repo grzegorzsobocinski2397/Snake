@@ -8,7 +8,6 @@
     Title="BoardPage"
     d:DesignHeight="450"
     d:DesignWidth="450"
-    
     x:TypeArguments="local:GameViewModel"
     mc:Ignorable="d">
 
@@ -20,24 +19,65 @@
         <KeyBinding Key="Left" Command="{Binding LeftKeyCommand}" />
         <!--  Option commands  -->
         <KeyBinding Key="Esc" Command="{Binding ExitKeyCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding ResetGameCommand}" />
         <KeyBinding Key="P" Command="{Binding PauseCommand}" />
     </Page.InputBindings>
-    <!--  Background  -->
-    <Border Background="Black">
+
+
+    <!--  Content  -->
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <!--  Game board  -->
+            <RowDefinition Height="*" />
+            <!--  Controls and score  -->
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <!--  Game board  -->
         <Border
+            Grid.RowSpan="2"
             Margin="20,20,20,90"
             BorderBrush="SpringGreen"
             BorderThickness="2">
 
             <Canvas>
+                <!--  Snake (player)  -->
                 <Rectangle
-                    Canvas.Left="{Binding X}"
-                    Canvas.Top="{Binding Y}"
+                    Canvas.Left="{Binding Snake.X}"
+                    Canvas.Top="{Binding Snake.Y}"
                     Width="10"
                     Height="10"
                     Fill="White" />
+                <!--  Apple  -->
+                <Rectangle
+                    Canvas.Left="{Binding Apple.X}"
+                    Canvas.Top="{Binding Apple.Y}"
+                    Width="10"
+                    Height="10"
+                    Fill="Red" />
+
             </Canvas>
         </Border>
-    </Border>
+        <TextBlock
+            Grid.Row="1"
+            Margin="25,0,0,60"
+            HorizontalAlignment="Left"
+            FontSize="30"
+            Style="{StaticResource BaseTextBlock}"
+            Text="{Binding Score, StringFormat={}Score:  {0}}" />
+
+        <!--  Game Over information  -->
+        <Border
+            Width="450"
+            Height="450"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="Transparent"
+            Visibility="{Binding IsGameOver, Converter={local:BooleanToVisibiltyConverter}}">
+            <TextBlock
+                FontSize="60"
+                Style="{StaticResource BaseTextBlock}"
+                Text="GAME  OVER" />
+        </Border>
+    </Grid>
 </local:BasePage>

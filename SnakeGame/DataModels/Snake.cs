@@ -1,52 +1,64 @@
-﻿namespace SnakeGame
+﻿using System.ComponentModel;
+
+namespace SnakeGame
 {
     /// <summary>
     /// This is the player.
     /// </summary>
-    public class Snake
+    public class Snake : INotifyPropertyChanged
     {
-        #region Public Properties
+        public event PropertyChangedEventHandler PropertyChanged;
+        #region Private Members
+        /// <summary>
+        /// X coordinate position of the snake on the canvas.
+        /// </summary>
         private int x;
-
+        /// <summary>
+        /// Y coordinate position of the snake on the canvas.
+        /// </summary>
+        private int y;
+        /// <summary>
+        /// How fast does the snake move on the canvas in the X axis.
+        /// </summary>
+        private int xspeed;
+        /// <summary>
+        /// How fast does the snake move on the canvas in the X axis.
+        /// </summary>
+        private int ySpeed;
+        #endregion
+        #region Public Properties
+        /// <summary>
+        /// X coordinate position of the snake on the canvas.
+        /// </summary>
         public int X
         {
             get { return x; }
             set { x = value; }
         }
-        private int y;
-
+        /// <summary>
+        /// Y coordinate position of the snake on the canvas.
+        /// </summary>
         public int Y
         {
             get { return y; }
             set { y = value; }
         }
-        private int xspeed;
-
+        /// <summary>
+        /// How fast does the snake move on the canvas in the X axis.
+        /// </summary>
         public int XSpeed
         {
             get { return xspeed; }
             set { xspeed = value; }
         }
-        private int ySpeed;
-
+        /// <summary>
+        /// How fast does the snake move on the canvas in the Y axis.
+        /// </summary>
         public int YSpeed
         {
             get { return ySpeed; }
             set { ySpeed = value; }
         }
-
-        /// <summary>
-        /// X coordinate position of the snake on the canvas.
-        /// </summary>
-        /// <summary>
-        /// Y coordinate position of the snake on the canvas.
-        /// </summary>
-        /// <summary>
-        /// How fast does the snake move on the canvas in the X axis.
-        /// </summary>
-        /// <summary>
-        /// How fast does the snake move on the canvas in the X axis.
-        /// </summary>
         #endregion
         #region Constructor
         /// <summary>
@@ -54,8 +66,8 @@
         /// </summary>
         public Snake()
         {
-            X = 0;
-            Y = 0;
+            X = 200;
+            Y = 40;
         }
         #endregion
         #region Public Methods
@@ -79,6 +91,11 @@
             XSpeed = -5;
             YSpeed = 0;
 
+        }
+        public void Stop()
+        {
+            XSpeed = 0;
+            YSpeed = 0;
         }
         #endregion
     }
