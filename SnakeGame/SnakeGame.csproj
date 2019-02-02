@@ -65,6 +65,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataModels\ApplicationPage.cs" />
+    <Compile Include="DataModels\AsyncObservableCollection.cs" />
+    <Compile Include="DataModels\SnakeMovement.cs" />
     <Compile Include="DataModels\SnakeSquare.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />

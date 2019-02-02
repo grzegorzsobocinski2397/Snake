@@ -7,7 +7,7 @@ namespace SnakeGame
     /// </summary>
     public class Snake : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+
         #region Private Members
         /// <summary>
         /// X coordinate position of the snake on the canvas.
@@ -25,8 +25,11 @@ namespace SnakeGame
         /// How fast does the snake move on the canvas in the X axis.
         /// </summary>
         private int ySpeed;
+
+        public event PropertyChangedEventHandler PropertyChanged;
         #endregion
         #region Public Properties
+        public SnakeMovement CurrentMovement { get; set; }
         /// <summary>
         /// X coordinate position of the snake on the canvas.
         /// </summary>
@@ -72,32 +75,40 @@ namespace SnakeGame
         }
         #endregion
         #region Public Methods
-        public void MoveUp()
+        /// <summary>
+        /// Changes the direction of the snake.
+        /// </summary>
+        /// <param name="movement"></param>
+        public void ChangeMovement(SnakeMovement movement)
         {
-            XSpeed = 0;
-            YSpeed = -10;
-        }
-        public void MoveDown()
-        {
-            XSpeed = 0;
-            YSpeed = 10;
-        }
-        public void MoveRight()
-        {
-            XSpeed = 10;
-            YSpeed = 0;
-        }
-        public void MoveLeft()
-        {
-            XSpeed = -10;
-            YSpeed = 0;
+            CurrentMovement = movement;
+
+            switch (movement)
+            {
+                case SnakeMovement.Up:
+                    XSpeed = 0;
+                    YSpeed = -10;
+                    break;
+                case SnakeMovement.Down:
+                    XSpeed = 0;
+                    YSpeed = 10;
+                    break;
+                case SnakeMovement.Right:
+                    XSpeed = 10;
+                    YSpeed = 0;
+                    break;
+                case SnakeMovement.Left:
+                    XSpeed = -10;
+                    YSpeed = 0;
+                    break;
+                case SnakeMovement.Stop:
+                    XSpeed = 0;
+                    YSpeed = 0;
+                    break;
+            }
 
         }
-        public void Stop()
-        {
-            XSpeed = 0;
-            YSpeed = 0;
-        }
+        
         #endregion
     }
 }

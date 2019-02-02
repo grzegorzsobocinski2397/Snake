@@ -8,6 +8,9 @@ namespace SnakeGame
 {
     public class SnakeSquare : Snake
     {
+        public SnakeSquare()
+        {
 
+        }
     }
 }

@@ -41,7 +41,7 @@
             BorderThickness="2">
 
             <Canvas>
-                
+
                 <!--  Snake (player)  -->
                 <Rectangle
                     Canvas.Left="{Binding Snake.X}"
@@ -55,9 +55,22 @@
                     Width="10"
                     Height="10"
                     Fill="Red" />
+                <ItemsControl ItemsSource="{Binding SnakeBodyParts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas>
+                                <Rectangle
+                                Canvas.Left="{Binding X}"
+                                Canvas.Top="{Binding Y}"
+                                Width="10"
+                                Height="10"
+                                Fill="Blue" />
+                            </Canvas>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
 
-               
             </Canvas>
         </Border>
         <TextBlock
