@@ -39,8 +39,22 @@
             Margin="30,30,30,100"
             BorderBrush="SpringGreen"
             BorderThickness="2">
-
             <Canvas>
+                <!--  Snake body parts  -->
+                <ItemsControl ItemsSource="{Binding SnakeBodyParts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Canvas>
+                                <Rectangle
+                                    Canvas.Left="{Binding X}"
+                                    Canvas.Top="{Binding Y}"
+                                    Width="10"
+                                    Height="10"
+                                    Fill="Blue" />
+                            </Canvas>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
                 <!--  Snake (player)  -->
                 <Rectangle
@@ -49,36 +63,17 @@
                     Width="10"
                     Height="10"
                     Fill="White" />
+                <!--  Apple  -->
                 <Rectangle
                     Canvas.Left="{Binding Apple.X}"
                     Canvas.Top="{Binding Apple.Y}"
                     Width="10"
                     Height="10"
                     Fill="Red" />
-                <Rectangle
-                    Canvas.Left="260"
-                    Canvas.Top="260"
-                    Width="10"
-                    Height="10"
-                    Fill="Red" />
-                <ItemsControl ItemsSource="{Binding SnakeBodyParts}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Canvas>
-                                <Rectangle
-                                Canvas.Left="{Binding X}"
-                                Canvas.Top="{Binding Y}"
-                                Width="10"
-                                Height="10"
-                                Fill="Blue" />
-                            </Canvas>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
 
             </Canvas>
         </Border>
+        <!--  Score information  -->
         <TextBlock
             Grid.Row="1"
             Margin="25,0,0,60"
