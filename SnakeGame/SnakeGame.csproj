@@ -68,6 +68,8 @@
     <Compile Include="DataModels\AsyncObservableCollection.cs" />
     <Compile Include="DataModels\SnakeMovement.cs" />
     <Compile Include="DataModels\SnakeSquare.cs" />
+    <Compile Include="Helpers\CreateSquareHelper.cs" />
+    <Compile Include="Helpers\MoveSquareHelper.cs" />
     <Compile Include="ValueConverters\ApplicationPageValueConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibiltyConverter.cs" />

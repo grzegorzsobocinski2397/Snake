@@ -8,6 +8,16 @@ namespace SnakeGame
 
     public class GameViewModel : BaseViewModel
     {
+        #region Helpers Members
+        /// <summary>
+        /// Helper class that creates the body parts.
+        /// </summary>
+        private readonly CreateSquareHelper create = new CreateSquareHelper();
+        /// <summary>
+        /// Helper class that moves the body parts.
+        /// </summary>
+        private MoveSquareHelper move = new MoveSquareHelper();
+        #endregion
         #region Public Properties
         public AsyncObservableCollection<SnakeSquare> SnakeBodyParts { get; set; }
         /// <summary>
@@ -96,28 +106,33 @@ namespace SnakeGame
             // Move the snake 
             Snake.X += Snake.XSpeed;
             Snake.Y += Snake.YSpeed;
-
-
-
+            
+            // Moves the body parts of a snake 
             for (int i = Score - 1 ; i >= 0; i--)
-           
             {
                 if (i == 0)
                 {
-                    SnakeBodyParts[i] = MoveSquare(Snake, SnakeBodyParts[i]);
+                    SnakeBodyParts[i] = move.MoveSquare(Snake, SnakeBodyParts[i]);
                 }
                 else
                 {
-                    SnakeBodyParts[i] = MoveSquare(SnakeBodyParts[i - 1], SnakeBodyParts[i]);
+                    SnakeBodyParts[i] = move.MoveSquare(SnakeBodyParts[i - 1], SnakeBodyParts[i]);
                 }
             }
 
             // If snake hits wall then game is over
             if (Snake.X <= 0 || Snake.X >= 330 || Snake.Y <= 0 || Snake.Y >= 330)
             {
-                Snake.ChangeMovement(SnakeMovement.Stop);
-                IsGameOver = true;
-                Timer.Stop();
+                GameOver();
+            }
+
+            // If snake hits himself then game is over 
+            for (int i = Score - 1; i >= 0; i--)
+            {
+                if (Snake.X > SnakeBodyParts[i].X - 10 && Snake.X < SnakeBodyParts[i].X + 10 && Snake.Y > SnakeBodyParts[i].Y - 10 && Snake.Y < SnakeBodyParts[i].Y + 10)
+                {
+                    GameOver();
+                }
             }
             // Player eats the apple if he gets close
             if (Snake.X >= Apple.X - 10 && Snake.X <= Apple.X + 10 && Snake.Y >= Apple.Y - 10 && Snake.Y <= Apple.Y + 10)
@@ -125,23 +140,25 @@ namespace SnakeGame
                 // Creates new body part
                 SnakeSquare square = new SnakeSquare();
 
+                
                 if (Score == 0)
                 {
-                    
-                    square = CreateSquare(Snake, square);
+                    square = create.CreateSquare(Snake, square);
 
                     SnakeBodyParts.Add(square);
                 }
                 else
                 {
+                    // Search for last snake body part 
                     var lastBodyPart = SnakeBodyParts.ElementAt(Score - 1);
 
-                    square = CreateSquare(SnakeBodyParts[Score - 1], square);
+                    square = create.CreateSquare(SnakeBodyParts[Score - 1], square);
                     
-
                     SnakeBodyParts.Add(square);
                 }
                 Score++;
+
+                // Create new apple 
                 Apple.SpawnApple();
                
             }
@@ -159,97 +176,13 @@ namespace SnakeGame
             Apple = new Apple();
             IsGameOver = false;
             SnakeBodyParts.Clear();
-
         }
-        private SnakeSquare CreateSquare(SnakeSquare previousSquare, SnakeSquare thisSquare)
+       
+        private void GameOver()
         {
-            if (previousSquare.CurrentMovement == SnakeMovement.Up)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Up);
-
-                thisSquare.Y = previousSquare.Y + 10;
-                thisSquare.X = previousSquare.X;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Down)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Down);
-
-                thisSquare.Y = previousSquare.Y - 10;
-                thisSquare.X = previousSquare.X;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Right)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Right);
-
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X - 10;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Left)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Left);
-
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X + 10;
-            }
-            return thisSquare;
-        }
-        private SnakeSquare CreateSquare(Snake snake, SnakeSquare thisSquare)
-        {
-            var previousSquare = new SnakeSquare()
-            {
-                X = snake.X,
-                Y = snake.Y,
-                CurrentMovement = snake.CurrentMovement
-            };
-
-            return CreateSquare(previousSquare, thisSquare);
-        }
-        private SnakeSquare MoveSquare(Snake snake, SnakeSquare thisSquare)
-        {
-            var previousSquare = new SnakeSquare()
-            {
-                X = snake.X - snake.XSpeed,
-                Y = snake.Y - snake.YSpeed,
-                CurrentMovement = Snake.CurrentMovement
-            };
-
-            return MoveSquare(previousSquare, thisSquare);
-        }
-        private SnakeSquare MoveSquare(SnakeSquare previousSquare, SnakeSquare thisSquare)
-        {
-            if (previousSquare.CurrentMovement == SnakeMovement.Up)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Up);
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Down)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Down);
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Right)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Right);
-
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X;
-            }
-            else if (previousSquare.CurrentMovement == SnakeMovement.Left)
-            {
-                thisSquare.ChangeMovement(SnakeMovement.Left);
-
-
-                thisSquare.Y = previousSquare.Y;
-                thisSquare.X = previousSquare.X;
-            }
-            return thisSquare;
+            Snake.ChangeMovement(SnakeMovement.Stop);
+            IsGameOver = true;
+            Timer.Stop();
         }
 
     }
