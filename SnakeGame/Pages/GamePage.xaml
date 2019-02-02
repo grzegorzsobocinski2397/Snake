@@ -36,7 +36,7 @@
         <!--  Game board  -->
         <Border
             Grid.RowSpan="2"
-            Margin="22,22,22,92"
+            Margin="30,30,30,100"
             BorderBrush="SpringGreen"
             BorderThickness="2">
 
@@ -52,6 +52,12 @@
                 <Rectangle
                     Canvas.Left="{Binding Apple.X}"
                     Canvas.Top="{Binding Apple.Y}"
+                    Width="10"
+                    Height="10"
+                    Fill="Red" />
+                <Rectangle
+                    Canvas.Left="260"
+                    Canvas.Top="260"
                     Width="10"
                     Height="10"
                     Fill="Red" />
@@ -90,7 +96,7 @@
             Background="Transparent"
             Visibility="{Binding IsGameOver, Converter={local:BooleanToVisibiltyConverter}}">
             <TextBlock
-                FontSize="60"
+                FontSize="50"
                 Style="{StaticResource BaseTextBlock}"
                 Text="GAME  OVER" />
         </Border>

@@ -77,8 +77,8 @@ namespace SnakeGame
             SnakeBodyParts = new AsyncObservableCollection<SnakeSquare>();
             
             // Create new timer 
-            Timer = new Timer(200);
-            Timer.Interval = 500;
+            Timer = new Timer(100);
+            Timer.Interval = 100;
             // Invoke Move() after interval time
             Timer.Elapsed += new ElapsedEventHandler(Check);
             Timer.Enabled = true;
@@ -121,7 +121,7 @@ namespace SnakeGame
             }
 
             // If snake hits wall then game is over
-            if (Snake.X <= 0 || Snake.X >= 330 || Snake.Y <= 0 || Snake.Y >= 330)
+            if (Snake.X < 0 || Snake.X > 270 || Snake.Y < 0 || Snake.Y > 270)
             {
                 GameOver();
             }
@@ -135,7 +135,7 @@ namespace SnakeGame
                 }
             }
             // Player eats the apple if he gets close
-            if (Snake.X >= Apple.X - 10 && Snake.X <= Apple.X + 10 && Snake.Y >= Apple.Y - 10 && Snake.Y <= Apple.Y + 10)
+            if (Snake.X > Apple.X - 10 && Snake.X < Apple.X + 10 && Snake.Y > Apple.Y - 10 && Snake.Y < Apple.Y + 10)
             {
                 // Creates new body part
                 SnakeSquare square = new SnakeSquare();
