@@ -81,34 +81,47 @@ namespace SnakeGame
         /// <param name="movement"></param>
         public void ChangeMovement(SnakeMovement movement)
         {
-            CurrentMovement = movement;
-
+            
             switch (movement)
             {
                 case SnakeMovement.Up:
-                    XSpeed = 0;
-                    YSpeed = -10;
+                    if (CurrentMovement != SnakeMovement.Down && CurrentMovement != SnakeMovement.Up)
+                    {
+                        XSpeed = 0;
+                        YSpeed = -10;
+                    }
                     break;
                 case SnakeMovement.Down:
-                    XSpeed = 0;
-                    YSpeed = 10;
+                    if (CurrentMovement != SnakeMovement.Down && CurrentMovement != SnakeMovement.Up)
+                    {
+
+                        XSpeed = 0;
+                        YSpeed = 10;
+                    }
                     break;
                 case SnakeMovement.Right:
-                    XSpeed = 10;
-                    YSpeed = 0;
+                    if (CurrentMovement != SnakeMovement.Right && CurrentMovement != SnakeMovement.Left)
+                    {
+                        XSpeed = 10;
+                        YSpeed = 0;
+                    }
                     break;
                 case SnakeMovement.Left:
-                    XSpeed = -10;
-                    YSpeed = 0;
+                    if (CurrentMovement != SnakeMovement.Right && CurrentMovement != SnakeMovement.Left)
+                    {
+                        XSpeed = -10;
+                        YSpeed = 0;
+                    } 
                     break;
                 case SnakeMovement.Stop:
                     XSpeed = 0;
                     YSpeed = 0;
                     break;
             }
+            CurrentMovement = movement;
 
         }
-        
+
         #endregion
     }
 }

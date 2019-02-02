@@ -107,7 +107,7 @@ namespace SnakeGame
             Snake.X += Snake.XSpeed;
             Snake.Y += Snake.YSpeed;
             
-            // Moves the body parts of a snake 
+            // Moves the body parts of a snake. 
             for (int i = Score - 1 ; i >= 0; i--)
             {
                 if (i == 0)
