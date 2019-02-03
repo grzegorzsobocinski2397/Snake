@@ -70,7 +70,6 @@
                     Width="10"
                     Height="10"
                     Fill="Red" />
-
             </Canvas>
         </Border>
         <!--  Score information  -->

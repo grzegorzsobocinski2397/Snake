@@ -1,11 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Linq;
 using System.Timers;
 using System.Windows.Input;
-using System.Linq;
 namespace SnakeGame
 {
-
-
+    
     public class GameViewModel : BaseViewModel
     {
         #region Helpers Members
@@ -75,12 +73,12 @@ namespace SnakeGame
 
             // Initialize collection
             SnakeBodyParts = new AsyncObservableCollection<SnakeSquare>();
-            
+
             // Create new timer 
             Timer = new Timer(100);
             Timer.Interval = 100;
             // Invoke Move() after interval time
-            Timer.Elapsed += new ElapsedEventHandler(Check);
+            Timer.Elapsed += new ElapsedEventHandler(CheckMove);
             Timer.Enabled = true;
 
             // Create commands
@@ -94,21 +92,43 @@ namespace SnakeGame
 
 
         #region Private Methods
-       
         /// <summary>
         /// Method that is called by the <see cref="Timer"/>
-        /// Changes the snake posiiton and checks for collisions.
+        /// Check for collisions and then continue with the moves.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
-        private void Check(object source, ElapsedEventArgs e)
+        private void CheckMove(object source, ElapsedEventArgs e)
+        {
+            // If snake hits wall then game is over 
+            if (Snake.X + Snake.XSpeed < 0 ||
+                Snake.X + Snake.XSpeed > 260 ||
+                Snake.Y + Snake.YSpeed < 0 ||
+                Snake.Y + Snake.YSpeed > 260)
+                GameOver();
+            else
+                Check();
+
+            // If snake hits himself then game is over 
+            for (int i = Score - 1; i >= 0; i--)
+            {
+                if (Snake.X + Snake.XSpeed > SnakeBodyParts[i].X - 10 &&
+                    Snake.X + Snake.XSpeed < SnakeBodyParts[i].X + 10 &&
+                    Snake.Y + Snake.YSpeed > SnakeBodyParts[i].Y - 10 &&
+                    Snake.Y + Snake.YSpeed < SnakeBodyParts[i].Y + 10)
+                    GameOver();
+            }
+        }
+
+       
+        private void Check()
         {
             // Move the snake 
             Snake.X += Snake.XSpeed;
             Snake.Y += Snake.YSpeed;
             
             // Moves the body parts of a snake. 
-            for (int i = Score - 1 ; i >= 0; i--)
+            for (int i = Score - 1; i >= 0; i--)
             {
                 if (i == 0)
                 {
@@ -119,27 +139,12 @@ namespace SnakeGame
                     SnakeBodyParts[i] = move.MoveSquare(SnakeBodyParts[i - 1], SnakeBodyParts[i]);
                 }
             }
-
-            // If snake hits wall then game is over
-            if (Snake.X < 0 || Snake.X > 270 || Snake.Y < 0 || Snake.Y > 270)
-            {
-                GameOver();
-            }
-
-            // If snake hits himself then game is over 
-            for (int i = Score - 1; i >= 0; i--)
-            {
-                if (Snake.X > SnakeBodyParts[i].X - 10 && Snake.X < SnakeBodyParts[i].X + 10 && Snake.Y > SnakeBodyParts[i].Y - 10 && Snake.Y < SnakeBodyParts[i].Y + 10)
-                {
-                    GameOver();
-                }
-            }
+            
             // Player eats the apple if he gets close
             if (Snake.X > Apple.X - 10 && Snake.X < Apple.X + 10 && Snake.Y > Apple.Y - 10 && Snake.Y < Apple.Y + 10)
             {
                 // Creates new body part
                 SnakeSquare square = new SnakeSquare();
-
                 
                 if (Score == 0)
                 {
@@ -153,16 +158,16 @@ namespace SnakeGame
                     var lastBodyPart = SnakeBodyParts.ElementAt(Score - 1);
 
                     square = create.CreateSquare(SnakeBodyParts[Score - 1], square);
-                    
+
                     SnakeBodyParts.Add(square);
                 }
                 Score++;
 
                 // Create new apple 
                 Apple.SpawnApple();
-               
+
             }
-            #endregion
+           
 
         }
         /// <summary>
@@ -177,14 +182,16 @@ namespace SnakeGame
             IsGameOver = false;
             SnakeBodyParts.Clear();
         }
-       
+        /// <summary>
+        /// Stops the snake movement and timer
+        /// </summary>
         private void GameOver()
         {
             Snake.ChangeMovement(SnakeMovement.Stop);
             IsGameOver = true;
             Timer.Stop();
         }
-
+        #endregion
     }
 }
 
