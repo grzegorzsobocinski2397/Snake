@@ -115,18 +115,19 @@ namespace SnakeGame
                 Snake.Y + Snake.YSpeed < 0 ||
                 Snake.Y + Snake.YSpeed > 260)
                 GameOver();
-            else
-                Check();
+           
 
             // If snake hits himself then game is over 
             for (int i = Score - 1; i >= 0; i--)
             {
-                if (Snake.X + Snake.XSpeed > SnakeBodyParts[i].X - 10 &&
-                    Snake.X + Snake.XSpeed < SnakeBodyParts[i].X + 10 &&
-                    Snake.Y + Snake.YSpeed > SnakeBodyParts[i].Y - 10 &&
-                    Snake.Y + Snake.YSpeed < SnakeBodyParts[i].Y + 10)
+                if (Snake.X + Snake.XSpeed == SnakeBodyParts[i].X  &&
+                    Snake.X + Snake.XSpeed == SnakeBodyParts[i].X  &&
+                    Snake.Y + Snake.YSpeed == SnakeBodyParts[i].Y &&
+                    Snake.Y + Snake.YSpeed == SnakeBodyParts[i].Y )
                     GameOver();
             }
+
+            Check();
         }
 
 
