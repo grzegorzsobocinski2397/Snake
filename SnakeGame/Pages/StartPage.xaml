@@ -2,25 +2,18 @@
     x:Class="SnakeGame.StartPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SnakeGame"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-Focusable="True"
-    
-    d:DesignHeight="450"
-    d:DesignWidth="450"
-    x:TypeArguments="local:StartGameViewModel"
-    mc:Ignorable="d">
+    Width="344"
+    Height="404"
+    x:TypeArguments="local:StartGameViewModel">
 
+    <!--  Key bindings  -->
     <Page.InputBindings>
         <KeyBinding Key="Enter" Command="{Binding StartGameCommand}" />
     </Page.InputBindings>
+
     <!--  Content  -->
     <Grid Background="Black">
-
-        <Grid.InputBindings>
-            <KeyBinding Key="J" Command="{Binding StartGameCommand}" />
-        </Grid.InputBindings>
 
         <Grid.RowDefinitions>
             <!--  Snake title  -->
@@ -45,9 +38,9 @@ Focusable="True"
             Grid.RowSpan="3"
             VerticalAlignment="Center"
             FontSize="40"
-            TextWrapping="WrapWithOverflow"
+            Style="{StaticResource BaseTextBlock}"
             TextAlignment="Center"
-            Style="{StaticResource BaseTextBlock}">
+            TextWrapping="WrapWithOverflow">
             <Run Text="PRESS " />
             <Run Foreground="Red" Text=" ENTER  " />
             <Run Text="TO  BEGIN" />

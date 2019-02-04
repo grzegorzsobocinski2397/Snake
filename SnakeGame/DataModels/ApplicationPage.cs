@@ -1,6 +1,4 @@
-﻿
-
-namespace SnakeGame
+﻿namespace SnakeGame
 {
     public enum ApplicationPage
     {

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SnakeGame
+﻿namespace SnakeGame
 {
+    /// <summary>
+    /// Snake body parts.
+    /// </summary>
     public class SnakeSquare : Snake
     {
+        #region Constructor
         public SnakeSquare()
         {
 
         }
+        #endregion
+
     }
 }

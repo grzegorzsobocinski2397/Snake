@@ -4,6 +4,10 @@ using System.Windows.Input;
 namespace SnakeGame 
 
 {
+    /// <summary>
+    /// Base page for all the pages.
+    /// </summary>
+    /// <typeparam name="VM">View Model of that page</typeparam>
     public class BasePage<VM> : Page
         where VM: BaseViewModel, new() 
     {

@@ -7,7 +7,6 @@ namespace SnakeGame
     /// </summary>
     public class Snake : INotifyPropertyChanged
     {
-
         #region Private Members
         /// <summary>
         /// X coordinate position of the snake on the canvas.

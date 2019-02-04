@@ -2,19 +2,19 @@
     x:Class="SnakeGame.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SnakeGame"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Snake"
     Width="340"
     Height="410"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
-    mc:Ignorable="d">
+    WindowStyle="None">
+    
+    <!--  Input bindings  -->
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
     </Window.InputBindings>
+
+    <!--  Window style  -->
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
@@ -28,10 +28,13 @@
             </Setter>
         </Style>
     </Window.Resources>
+
+    <!--  Makes the whole window draggable  -->
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="200" GlassFrameThickness="0" />
+        <WindowChrome CaptionHeight="410" GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
 
+    <!--  Content  -->
     <Border>
         <Frame
             x:Name="MainFrame"

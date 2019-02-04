@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 
 namespace SnakeGame
@@ -18,7 +17,6 @@ namespace SnakeGame
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-
         #region Constructor
         /// <summary>
         /// Default constructor.

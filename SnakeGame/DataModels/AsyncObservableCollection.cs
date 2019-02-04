@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SnakeGame
 {
+
+    /// <summary>
+    /// Asynchrous Observable Collection that allows the snake body parts to be drawn on the canvas
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
    public class AsyncObservableCollection<T> : ObservableCollection<T>
     {
         private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;

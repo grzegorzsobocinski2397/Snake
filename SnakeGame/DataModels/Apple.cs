@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace SnakeGame
 {
+    /// <summary>
+    /// Red dot on the canvas. 
+    /// </summary>
     public class Apple : INotifyPropertyChanged
     {
         #region Private Members

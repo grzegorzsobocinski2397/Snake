@@ -6,7 +6,7 @@ namespace SnakeGame
 
     public class GameViewModel : BaseViewModel
     {
-        #region Helpers Members
+        #region Helper Classes
         /// <summary>
         /// Helper class that creates the body parts.
         /// </summary>
@@ -17,13 +17,16 @@ namespace SnakeGame
         private MoveSquareHelper move = new MoveSquareHelper();
         #endregion
         #region Public Properties
+        /// <summary>
+        /// Asynchronous Observable Collection of snake body parts. 
+        /// </summary>
         public AsyncObservableCollection<SnakeSquare> SnakeBodyParts { get; set; }
         /// <summary>
         /// Red rectangle on the canvas.
         /// </summary>
         public Apple Apple { get; set; }
         /// <summary>
-        /// How many apples had user picked up
+        /// How many apples had user picked up.
         /// </summary>
         public int Score { get; set; }
         /// <summary>
@@ -35,39 +38,19 @@ namespace SnakeGame
         /// </summary>
         public Timer Timer { get; set; }
         /// <summary>
-        /// True if user hit wall or himself
+        /// True if user hit wall or himself.
         /// </summary>
         public bool IsGameOver { get; set; }
         /// <summary>
-        /// True if the game is paused
+        /// True if the game is paused.
         /// </summary>
         public bool IsGamePaused { get; set; }
         #endregion
         #region Commands
         /// <summary>
-        /// Up key has been pressed and player moves up.
+        /// Arrow key has been pressed and player moves into a different direction.
         /// </summary>
-        public ICommand UpKeyCommand { get; set; }
-        /// <summary>
-        /// Down key has been pressed and player moves down.
-        /// </summary>
-        public ICommand DownKeyCommand { get; set; }
-        /// <summary>
-        /// Right key has been pressed and player moves to the right.
-        /// </summary>
-        public ICommand RightKeyCommand { get; set; }
-        /// <summary>
-        /// Left key has been pressed and player moves to the left.
-        /// </summary>
-        public ICommand LeftKeyCommand { get; set; }
-        /// <summary>
-        /// Enter has been pressed and player wants to start again.
-        /// </summary>
-        public ICommand ResetGameCommand { get; set; }
-        /// <summary>
-        /// Pauses the gamee, freezing the player
-        /// </summary>
-        public ICommand PauseCommand { get; set; }
+        public ICommand KeyPressedCommand { get; set; }
         #endregion
         #region Constructor
         /// <summary>
@@ -84,23 +67,46 @@ namespace SnakeGame
 
             // Create new timer 
             Timer = new Timer(100);
+
             // Invoke Move() after interval time
             Timer.Elapsed += new ElapsedEventHandler(CheckMove);
             Timer.Enabled = true;
 
-            // Create commands
-            UpKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Up));
-            DownKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Down));
-            RightKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Right));
-            LeftKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Left));
-            ResetGameCommand = new RelayCommand(() => ResetGame());
-            PauseCommand = new RelayCommand(() => PauseGame());
+            // Create command
+            KeyPressedCommand = new RelayParameterCommand((parameter) => KeyPressed(parameter));
         }
         #endregion
-
-
         #region Private Methods
-      
+        /// <summary>
+        /// Do something based on the key pressed by the user.
+        /// </summary>
+        /// <param name="parameter">String informing of the key pressed</param>
+        private void KeyPressed(object parameter)
+        {
+            var key = (string)parameter;
+            switch (key)
+            {
+                case "Up":
+                    Snake.ChangeMovement(SnakeMovement.Up);
+                    break;
+                case "Down":
+                    Snake.ChangeMovement(SnakeMovement.Down);
+                    break;
+                case "Right":
+                    Snake.ChangeMovement(SnakeMovement.Right);
+                    break;
+                case "Left":
+                    Snake.ChangeMovement(SnakeMovement.Left);
+                    break;
+                case "Pause":
+                    PauseGame();
+                    break;
+                case "Reset":
+                    ResetGame();
+                    break;
+            }
+
+        }
         /// <summary>
         /// Method that is called by the <see cref="Timer"/>
         /// Check for collisions and then continue with the moves.
@@ -115,22 +121,24 @@ namespace SnakeGame
                 Snake.Y + Snake.YSpeed < 0 ||
                 Snake.Y + Snake.YSpeed > 260)
                 GameOver();
-           
+
 
             // If snake hits himself then game is over 
             for (int i = Score - 1; i >= 0; i--)
             {
-                if (Snake.X + Snake.XSpeed == SnakeBodyParts[i].X  &&
-                    Snake.X + Snake.XSpeed == SnakeBodyParts[i].X  &&
+                if (Snake.X + Snake.XSpeed == SnakeBodyParts[i].X &&
+                    Snake.X + Snake.XSpeed == SnakeBodyParts[i].X &&
                     Snake.Y + Snake.YSpeed == SnakeBodyParts[i].Y &&
-                    Snake.Y + Snake.YSpeed == SnakeBodyParts[i].Y )
+                    Snake.Y + Snake.YSpeed == SnakeBodyParts[i].Y)
                     GameOver();
             }
 
             Check();
         }
 
-
+        /// <summary>
+        /// If user didn't hit anything than he and his body parts can move
+        /// </summary>
         private void Check()
         {
             // Move the snake 
@@ -189,12 +197,12 @@ namespace SnakeGame
         /// </summary>
         private void ResetGame()
         {
-            Timer.Start();
-            Score = 0;
+            SnakeBodyParts.Clear();
             Snake = new Snake();
             Apple = new Apple();
+            Score = 0;
+            Timer.Start();
             IsGameOver = false;
-            SnakeBodyParts.Clear();
         }
         /// <summary>
         /// Stops the snake movement and timer
@@ -202,8 +210,8 @@ namespace SnakeGame
         private void GameOver()
         {
             Snake.ChangeMovement(SnakeMovement.Stop);
-            IsGameOver = true;
             Timer.Stop();
+            IsGameOver = true;
         }
         /// <summary>
         /// Pauses/unpauses the game.

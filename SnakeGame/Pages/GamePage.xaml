@@ -2,24 +2,39 @@
     x:Class="SnakeGame.GamePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SnakeGame"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="BoardPage"
-    d:DesignHeight="450"
-    d:DesignWidth="450"
-    x:TypeArguments="local:GameViewModel"
-    mc:Ignorable="d">
+    Width="334"
+    Height="404"
+    x:TypeArguments="local:GameViewModel">
 
+    <!--  Input bindings  -->
     <Page.InputBindings>
         <!--  Movement commands  -->
-        <KeyBinding Key="Up" Command="{Binding UpKeyCommand}" />
-        <KeyBinding Key="Down" Command="{Binding DownKeyCommand}" />
-        <KeyBinding Key="Right" Command="{Binding RightKeyCommand}" />
-        <KeyBinding Key="Left" Command="{Binding LeftKeyCommand}" />
+        <KeyBinding
+            Key="Up"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Up" />
+        <KeyBinding
+            Key="Down"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Down" />
+        <KeyBinding
+            Key="Right"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Right" />
+        <KeyBinding
+            Key="Left"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Left" />
         <!--  Option commands  -->
-        <KeyBinding Key="Enter" Command="{Binding ResetGameCommand}" />
-        <KeyBinding Key="P" Command="{Binding PauseCommand}" />
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Reset" />
+        <KeyBinding
+            Key="P"
+            Command="{Binding KeyPressedCommand}"
+            CommandParameter="Pause" />
     </Page.InputBindings>
 
 
@@ -44,6 +59,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Canvas>
+                                <!--  Single snake body part  -->
                                 <Rectangle
                                     Canvas.Left="{Binding X}"
                                     Canvas.Top="{Binding Y}"

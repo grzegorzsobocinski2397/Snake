@@ -1,5 +1,8 @@
 ﻿namespace SnakeGame
 {
+    /// <summary>
+    /// Helper class that moves the snake and his body parts.
+    /// </summary>
     public class MoveSquareHelper
     {
         #region Constructor

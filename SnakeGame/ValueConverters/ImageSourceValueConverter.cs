@@ -1,14 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeGame
 {
     public class ImageSourceValueConverter : BaseValueConverter<ImageSourceValueConverter>
     {
+        /// <summary>
+        /// Converts <see cref="SnakeMovement"/> to a image source string
+        /// </summary>
+        /// <param name="value">Current SnakeMovement</param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter">String informing of which button was pressed</param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var button = (string)parameter;
@@ -29,7 +33,7 @@ namespace SnakeGame
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
        
