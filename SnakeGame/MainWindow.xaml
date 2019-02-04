@@ -12,6 +12,9 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
+    </Window.InputBindings>
     <Window.Resources>
         <Style TargetType="{x:Type local:MainWindow}">
             <Setter Property="Template">
@@ -26,7 +29,7 @@
         </Style>
     </Window.Resources>
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="520" GlassFrameThickness="0" />
+        <WindowChrome CaptionHeight="200" GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
 
     <Border>

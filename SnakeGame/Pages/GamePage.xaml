@@ -18,7 +18,6 @@
         <KeyBinding Key="Right" Command="{Binding RightKeyCommand}" />
         <KeyBinding Key="Left" Command="{Binding LeftKeyCommand}" />
         <!--  Option commands  -->
-        <KeyBinding Key="Esc" Command="{Binding ExitKeyCommand}" />
         <KeyBinding Key="Enter" Command="{Binding ResetGameCommand}" />
         <KeyBinding Key="P" Command="{Binding PauseCommand}" />
     </Page.InputBindings>
@@ -72,27 +71,90 @@
                     Fill="Red" />
             </Canvas>
         </Border>
-        <!--  Score information  -->
-        <TextBlock
-            Grid.Row="1"
-            Margin="25,0,0,60"
-            HorizontalAlignment="Left"
-            FontSize="30"
-            Style="{StaticResource BaseTextBlock}"
-            Text="{Binding Score, StringFormat={}Score:  {0}}" />
 
-        <!--  Game Over information  -->
-        <Border
+        <!--  Score information and buttons  -->
+        <Grid Grid.Row="1" Margin="10,0,10,10">
+            <Grid.ColumnDefinitions>
+                <!--  Score information  -->
+                <ColumnDefinition Width="3*" />
+                <!--  Button pads  -->
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Score information  -->
+            <TextBlock
+                Grid.Row="1"
+                Margin="25,0,0,60"
+                HorizontalAlignment="Left"
+                FontSize="30"
+                Style="{StaticResource BaseTextBlock}"
+                Text="{Binding Score, StringFormat={}Score:  {0}}" />
+
+            <!--  Buttons  -->
+            <Grid Grid.Column="1">
+                <!--  Up button  -->
+                <Image
+                    Grid.Row="0"
+                    Width="25"
+                    Height="25"
+                    Margin="42,8,42,58"
+                    Source="{Binding Snake.CurrentMovement, Converter={local:ImageSourceValueConverter}, ConverterParameter=Up}" />
+
+                <!--  Left button  -->
+                <Image
+                    Grid.Column="0"
+                    Width="25"
+                    Height="25"
+                    Margin="17,58,66,8"
+                    Source="{Binding Snake.CurrentMovement, Converter={local:ImageSourceValueConverter}, ConverterParameter=Left}">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="-90" />
+                    </Image.RenderTransform>
+                </Image>
+
+                <!--  Down button  -->
+                <Image
+                    Width="25"
+                    Height="25"
+                    Margin="67,83,16,-17"
+                    Source="{Binding Snake.CurrentMovement, Converter={local:ImageSourceValueConverter}, ConverterParameter=Down}">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="180" />
+                    </Image.RenderTransform>
+                </Image>
+
+                <!--  Right button  -->
+                <Image
+                    Width="25"
+                    Height="25"
+                    Margin="92,33,-9,33"
+                    Source="{Binding Snake.CurrentMovement, Converter={local:ImageSourceValueConverter}, ConverterParameter=Right}">
+                    <Image.RenderTransform>
+                        <RotateTransform Angle="90" />
+                    </Image.RenderTransform>
+                </Image>
+            </Grid>
+        </Grid>
+
+        <!--  Informations  -->
+        <Grid
             Width="450"
             Height="450"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="Transparent"
-            Visibility="{Binding IsGameOver, Converter={local:BooleanToVisibiltyConverter}}">
+            Background="Transparent">
+            <!--  Game over information  -->
             <TextBlock
                 FontSize="50"
                 Style="{StaticResource BaseTextBlock}"
-                Text="GAME  OVER" />
-        </Border>
+                Text="GAME  OVER"
+                Visibility="{Binding IsGameOver, Converter={local:BooleanToVisibiltyConverter}}" />
+            <!--  Game paused information  -->
+            <TextBlock
+                FontSize="40"
+                Style="{StaticResource BaseTextBlock}"
+                Text="GAME  PAUSED"
+                Visibility="{Binding IsGamePaused, Converter={local:BooleanToVisibiltyConverter}}" />
+        </Grid>
     </Grid>
 </local:BasePage>

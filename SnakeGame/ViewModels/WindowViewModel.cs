@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SnakeGame
 {
@@ -17,7 +18,12 @@ namespace SnakeGame
         /// </summary>
         public ApplicationPage CurrentPage { get; set; }
         #endregion
-
+        #region Commands
+        /// <summary>
+        /// Closes the application
+        /// </summary>
+        public ICommand CloseCommand { get; set; }
+        #endregion
         #region Constructor
         /// <summary>
         /// Default constructor
@@ -28,6 +34,9 @@ namespace SnakeGame
             this.window = window;
 
             CurrentPage = ApplicationPage.StartPage;
+
+            // Creates commands
+            CloseCommand = new RelayCommand(() => window.Close());
         }
         #endregion
     }

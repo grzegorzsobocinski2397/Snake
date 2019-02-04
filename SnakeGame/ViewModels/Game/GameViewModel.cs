@@ -3,7 +3,7 @@ using System.Timers;
 using System.Windows.Input;
 namespace SnakeGame
 {
-    
+
     public class GameViewModel : BaseViewModel
     {
         #region Helpers Members
@@ -38,6 +38,10 @@ namespace SnakeGame
         /// True if user hit wall or himself
         /// </summary>
         public bool IsGameOver { get; set; }
+        /// <summary>
+        /// True if the game is paused
+        /// </summary>
+        public bool IsGamePaused { get; set; }
         #endregion
         #region Commands
         /// <summary>
@@ -60,6 +64,10 @@ namespace SnakeGame
         /// Enter has been pressed and player wants to start again.
         /// </summary>
         public ICommand ResetGameCommand { get; set; }
+        /// <summary>
+        /// Pauses the gamee, freezing the player
+        /// </summary>
+        public ICommand PauseCommand { get; set; }
         #endregion
         #region Constructor
         /// <summary>
@@ -76,7 +84,6 @@ namespace SnakeGame
 
             // Create new timer 
             Timer = new Timer(100);
-            Timer.Interval = 100;
             // Invoke Move() after interval time
             Timer.Elapsed += new ElapsedEventHandler(CheckMove);
             Timer.Enabled = true;
@@ -87,11 +94,13 @@ namespace SnakeGame
             RightKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Right));
             LeftKeyCommand = new RelayCommand(() => Snake.ChangeMovement(SnakeMovement.Left));
             ResetGameCommand = new RelayCommand(() => ResetGame());
+            PauseCommand = new RelayCommand(() => PauseGame());
         }
         #endregion
 
 
         #region Private Methods
+      
         /// <summary>
         /// Method that is called by the <see cref="Timer"/>
         /// Check for collisions and then continue with the moves.
@@ -120,13 +129,13 @@ namespace SnakeGame
             }
         }
 
-       
+
         private void Check()
         {
             // Move the snake 
             Snake.X += Snake.XSpeed;
             Snake.Y += Snake.YSpeed;
-            
+
             // Moves the body parts of a snake. 
             for (int i = Score - 1; i >= 0; i--)
             {
@@ -139,19 +148,24 @@ namespace SnakeGame
                     SnakeBodyParts[i] = move.MoveSquare(SnakeBodyParts[i - 1], SnakeBodyParts[i]);
                 }
             }
-            
+
             // Player eats the apple if he gets close
-            if (Snake.X > Apple.X - 10 && Snake.X < Apple.X + 10 && Snake.Y > Apple.Y - 10 && Snake.Y < Apple.Y + 10)
+            if (Snake.X > Apple.X - 10 &&
+                Snake.X < Apple.X + 10 &&
+                Snake.Y > Apple.Y - 10 &&
+                Snake.Y < Apple.Y + 10)
             {
                 // Creates new body part
                 SnakeSquare square = new SnakeSquare();
-                
+
+                // If this is the first body part to be created then use snake's coordinates 
                 if (Score == 0)
                 {
                     square = create.CreateSquare(Snake, square);
 
                     SnakeBodyParts.Add(square);
                 }
+                // else use last snake body part 
                 else
                 {
                     // Search for last snake body part 
@@ -167,9 +181,8 @@ namespace SnakeGame
                 Apple.SpawnApple();
 
             }
-           
-
         }
+
         /// <summary>
         /// Changes the values to default
         /// </summary>
@@ -190,6 +203,28 @@ namespace SnakeGame
             Snake.ChangeMovement(SnakeMovement.Stop);
             IsGameOver = true;
             Timer.Stop();
+        }
+        /// <summary>
+        /// Pauses/unpauses the game.
+        /// </summary>
+        private void PauseGame()
+        {
+            // User can't pause/unpause if he already lost 
+            if (IsGameOver == false)
+            {
+                // Pause/unpause
+                if (IsGamePaused)
+                {
+                    IsGamePaused = false;
+                    Timer.Start();
+                }
+                else
+                {
+                    IsGamePaused = true;
+                    Timer.Stop();
+                }
+            }
+
         }
         #endregion
     }

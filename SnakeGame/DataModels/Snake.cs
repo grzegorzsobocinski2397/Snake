@@ -62,7 +62,7 @@ namespace SnakeGame
             get { return ySpeed; }
             set { ySpeed = value; }
         }
-       
+
         #endregion
         #region Constructor
         /// <summary>
@@ -81,7 +81,7 @@ namespace SnakeGame
         /// <param name="movement"></param>
         public void ChangeMovement(SnakeMovement movement)
         {
-            
+
             switch (movement)
             {
                 case SnakeMovement.Up:
@@ -111,14 +111,17 @@ namespace SnakeGame
                     {
                         XSpeed = -10;
                         YSpeed = 0;
-                    } 
+                    }
                     break;
                 case SnakeMovement.Stop:
                     XSpeed = 0;
                     YSpeed = 0;
                     break;
             }
+
             CurrentMovement = movement;
+
+
 
         }
 
