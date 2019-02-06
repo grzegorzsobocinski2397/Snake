@@ -5,10 +5,11 @@
     xmlns:local="clr-namespace:SnakeGame"
     Width="340"
     Height="410"
+    Icon="/Resources/Images/SnakeIcon.png"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None">
-    
+
     <!--  Input bindings  -->
     <Window.InputBindings>
         <KeyBinding Key="Esc" Command="{Binding CloseCommand}" />
